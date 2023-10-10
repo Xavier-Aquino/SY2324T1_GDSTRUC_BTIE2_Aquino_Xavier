@@ -18,28 +18,36 @@ public class Main {
             discard.pop();
         }
 
-        System.out.println("Starting sizes:");
-        System.out.println("playerdeck: " + playerdeck.size());
-        System.out.println("playerhand: " + playerhand.size());
-        System.out.println("discard: " + discard.size());
-
-        while (true) {
+        while (!playerdeck.isEmpty()) {
             int action = rand.nextInt(3);
-
             switch (action) {
                 case 0:
                     playerdeck.transfer(playerhand);
-                    System.out.println("COMMAND 1");
+                    System.out.println("cards were drawn from the deck.");
+                    System.out.println("player deck: " + playerdeck.size());
+                    System.out.println("player hand: " + playerhand.size());
+                    System.out.println("discard: " + discard.size());
+                    playerhand.showCards();
                     System.out.println("\nPress Any Key to Continue...");
                     new java.util.Scanner(System.in).nextLine();
                     break;
                 case 1:
-                    System.out.println("COMMAND 2");
+                    playerhand.transfer(discard);
+                    System.out.println("cards were discarded from your hand.");
+                    System.out.println("player deck: " + playerdeck.size());
+                    System.out.println("player hand: " + playerhand.size());
+                    System.out.println("discard: " + discard.size());
+                    playerhand.showCards();
                     System.out.println("\nPress Any Key to Continue...");
                     new java.util.Scanner(System.in).nextLine();
                     break;
                 case 2:
-                    System.out.println("COMMAND 3");
+                    discard.transfer(playerhand);
+                    System.out.println("cards were taken from the discard pile.");
+                    System.out.println("player deck: " + playerdeck.size());
+                    System.out.println("player hand: " + playerhand.size());
+                    System.out.println("discard: " + discard.size());
+                    playerhand.showCards();
                     System.out.println("\nPress Any Key to Continue...");
                     new java.util.Scanner(System.in).nextLine();
                     break;
@@ -48,18 +56,9 @@ public class Main {
                     break;
             }
         }
+        System.out.println("Game Over! The Player Deck is Empty");
+        System.out.println("\nPress Any Key to End the Program...");
+        new java.util.Scanner(System.in).nextLine();
+        System.exit(0);
     }
 }
-
-
-//hand deck and discard pile stack
-//while loop, player hand still has cards in it
-
-// for (int i = 0; i < 10; i++)
-//    {
-//        randomNumber = rand.nextInt(3);
-//        randomNumber++;
-//        System.out.println(randomNumber);
-//        System.out.println("\nPress Any Key to Continue...");
-//        new java.util.Scanner(System.in).nextLine();
-//    }

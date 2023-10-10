@@ -1,9 +1,9 @@
 import java.util.EmptyStackException;
+import java.util.Random;
 
 public class Card {
     private Node top;
     private int size;
-
     private static class Node {
         private String name;
         private Node next;
@@ -39,7 +39,7 @@ public class Card {
 
     public String pop() {
         if (isEmpty()) {
-            throw new EmptyStackException();
+            return null;
         }
         String name = top.name;
         top = top.next;
@@ -63,12 +63,20 @@ public class Card {
     }
 
     public void transfer(Card Target) {
-        if (isEmpty()) {
-            throw new EmptyStackException();
+        Random random = new Random();
+        int repeat = random.nextInt(6);
+        for (int i = 0; i < repeat && !isEmpty(); i++) {
+            String transferredCard = pop();
+            Target.push(transferredCard);
         }
+    }
 
-        String transferredCard = pop();
-        Target.push(transferredCard);
+    public void showCards() {
+        Node current = top;
+        while (current != null) {
+            System.out.println(current.name);
+            current = current.next;
+        }
     }
     public static void main(String[] args) {
         Card cardDeck = new Card();
