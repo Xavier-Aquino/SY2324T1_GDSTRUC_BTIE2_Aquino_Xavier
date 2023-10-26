@@ -1,40 +1,31 @@
-public class SimpleHashtable
-{
+public class SimpleHashtable {
     private StoredStudent[] hashtable;
 
-    public SimpleHashtable(int capacity)
-    {
+    public SimpleHashtable(int capacity) {
         hashtable = new StoredStudent[capacity];
     }
 
-    private int hashKey(String key)
-    {
+    private int hashKey(String key) {
         return key.length() % hashtable.length;
     }
 
 
-    public void put(String key, Student value)
-    {
+    public void put(String key, Student value) {
         int hashedKey = hashKey(key);
 
-        if (isOccupied(hashedKey))
-        {
+        if (isOccupied(hashedKey)) {
             System.out.println("\nSorry, there's already an element at position " + hashedKey);
             System.out.println("Starting Linear Probing");
             // Linear probing
             int stoppingIndex = hashedKey;
 
-            if (hashedKey == hashtable.length - 1)
-            {
+            if (hashedKey == hashtable.length - 1) {
                 hashedKey = 0;
-            }
-            else
-            {
+            } else {
                 hashedKey++;
             }
 
-            while (isOccupied(hashedKey) && hashedKey != stoppingIndex)
-            {
+            while (isOccupied(hashedKey) && hashedKey != stoppingIndex) {
                 System.out.println("Current Hashkey: " + hashedKey + " is occupied");
                 hashedKey = (hashedKey + 1) % hashtable.length;
             }
@@ -44,20 +35,17 @@ public class SimpleHashtable
         System.out.println("value put at index: " + hashedKey + "\n");
     }
 
-    public Student get(String key)
-    {
+    public Student get(String key) {
         int hashedKey = findKey(key);
-        if(hashedKey == -1)
-        {
+        if (hashedKey == -1 || hashtable[hashedKey] == null) {
             System.out.println("Wasn't able to find the key: " + key);
             return null;
+        } else {
+            return hashtable[hashedKey].value;
         }
-
-        return hashtable[hashedKey].value;
     }
 
-    public void remove(String key)
-    {
+    public void remove(String key) {
         int hashedKey = findKey(key);
         if (hashedKey == -1) {
             System.out.println("Wasn't able to find the key: " + key);
@@ -67,62 +55,52 @@ public class SimpleHashtable
         }
     }
 
-    public void printHashtable()
-    {
-        for (int i = 0; i < hashtable.length; i++)
-        {
+    public void printHashtable() {
+        for (int i = 0; i < hashtable.length; i++) {
             System.out.println("Element " + i + ": " + hashtable[i]);
         }
     }
 
-    private int findKey(String key)
-    {
+    private int findKey(String key) {
         int hashedKey = hashKey(key);
 
-        if(isOccupied(hashedKey) && isSameKey(hashedKey, key))
-        {
+        if (isOccupied(hashedKey) && isSameKey(hashedKey, key)) {
             return hashedKey;
-        }
-        else
-        {
+        } else {
             System.out.println("\nSorry, the key in index " + hashedKey + "(" + hashtable[hashedKey].key + ") is not the same as " + key);
             System.out.println("Starting Linear Probing");
             // Linear probing
             int stoppingIndex = hashedKey;
 
-            if (hashedKey == hashtable.length - 1)
-            {
+            if (hashedKey == hashtable.length - 1) {
                 hashedKey = 0;
-            }
-            else
-            {
+            } else {
                 hashedKey++;
             }
-
-            while (!isSameKey(hashedKey, key) && hashedKey != stoppingIndex)
-            {
+            while (!isSameKey(hashedKey, key) && hashedKey != stoppingIndex) {
                 System.out.println("Current key in index " + hashedKey + "(" + hashtable[hashedKey].key + ") is not the same as " + key);
                 hashedKey = (hashedKey + 1) % hashtable.length;
-
                 return -1;
             }
         }
 
-        if(isOccupied(hashedKey) && isSameKey(hashedKey, key))
-        {
+        if (isOccupied(hashedKey) && isSameKey(hashedKey, key)) {
             return hashedKey;
         }
 
         return -1;
     }
 
-    private boolean isOccupied(int index)
-    {
+    private boolean isOccupied(int index) {
         return hashtable[index] != null;
     }
 
-    private boolean isSameKey(int index, String key)
-    {
-        return hashtable[index].key.equals(key);
+    private boolean isSameKey(int index, String key) {
+        if (hashtable[index] != null)
+        {
+            return hashtable[index].key.equals(key);
+        } else {
+            return false;
+        }
     }
 }
