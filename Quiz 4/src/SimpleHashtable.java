@@ -103,6 +103,8 @@ public class SimpleHashtable
             {
                 System.out.println("Current key in index " + hashedKey + "(" + hashtable[hashedKey].key + ") is not the same as " + key);
                 hashedKey = (hashedKey + 1) % hashtable.length;
+
+                return -1;
             }
         }
 

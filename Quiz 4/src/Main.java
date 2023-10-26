@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
         Student student1 = new Student("Greco Yatco");
@@ -16,15 +18,22 @@ public class Main {
         hashtable.put(student5.getName(), student5);
         hashtable.put(student6.getName(), student6);
 
-        System.out.println("Hashtable:");
+        System.out.println("\nHashtable:");
         hashtable.printHashtable();
 
-        System.out.println("Getting element at hashtable with key: Jen Zeceries");
-        System.out.println(hashtable.get("Jen Zeceries"));
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nInput a key: ");
+        String keyInput = scanner.nextLine();
+        scanner.close();
 
-        hashtable.remove("Jen Zeceries");
+        if (hashtable.get(keyInput) != null){
+            System.out.println("\nGetting element at hashtable with key: " + keyInput + "\n");
+            hashtable.remove(keyInput);
+        } else {
+            System.out.println("Key does not exist.");
+        }
 
-        System.out.println("Hashtable updated:");
+        System.out.println("\nHashtable updated:");
         hashtable.printHashtable();
     }
 }
